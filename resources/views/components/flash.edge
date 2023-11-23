@@ -1,0 +1,11 @@
+@if(flashMessages.has('success'))
+  <div>
+    {{ inspect(flashMessages.get('success')) }}
+  </div>
+@end
+
+@if(flashMessages.has('error'))
+  <div>
+    {{ inspect(flashMessages.get('error')) }}
+  </div>
+@end

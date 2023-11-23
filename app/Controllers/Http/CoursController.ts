@@ -1,0 +1,61 @@
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Cour from '../../Models/Cour'
+import UpdateCourValidator from '../../Validators/UpdateCourValidator'
+import Database from '@ioc:Adonis/Lucid/Database'
+import Category from '../../Models/Category'
+
+export default class CoursController {
+  public async index ({ view, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const cours = await Database.from(Cour.table).paginate(page, 2)
+    return view.render('pannel/index', {
+      cours,
+    })
+  }
+
+  public async create ({ view }: HttpContextContract) {
+    const cour = new Cour()
+    const categories = await Category.all()
+    return view.render('pannel/create', {
+      cour,
+      categories,
+    })
+  }
+
+  public async store ({ params, request, session, response }: HttpContextContract) {
+    await this.handleRequest(params, request)
+    session.flash({ success:'Le cour a bien ete ajouter' })
+    return response.redirect().toRoute('home')
+  }
+
+  public async show ({ params, view }: HttpContextContract) {
+    const cour = await Cour.findOrFail(params.id)
+    const categories = await Category.all()
+    return view.render('pannel/show', {
+      cour,
+      categories,
+    })
+  }
+
+  public async update ({ params, request, response, session }: HttpContextContract) {
+    await this.handleRequest(params, request)
+    session.flash({ success:'Le cour a bien ete sauvegarder' })
+    return response.redirect().toRoute('home')
+  }
+
+  public async destroy ({ params, session, response }: HttpContextContract) {
+    const cour = await Cour.findOrFail(params.id)
+    await cour.delete()
+    session.flash({ success:'Le cour a bien ete supprimer' })
+    return response.redirect().toRoute('home')
+  }
+
+  // eslint-disable-next-line max-len
+  private async handleRequest (params: HttpContextContract['params'], request: HttpContextContract['request']) {
+    const cour = params.id ? await Cour.findOrFail(params.id) : new Cour()
+    const dataCour = await request.validate(UpdateCourValidator)
+    cour
+      .merge({ ...dataCour || false })
+      .save()
+  }
+}

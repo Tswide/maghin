@@ -1,0 +1,18 @@
+<form action="" method="post" enctype="multipart/form-data">
+    <div>
+        @!component('components/input', {
+            label: 'Titre',
+            name: 'title',
+            value: cour.title
+        })
+    </div>
+    <div>
+        @!component('components/input', {
+            label: 'Categorie',
+            name: 'categoryId',
+            value: cour.categoryId,
+            options: categories.reduce((acc, c) => ({ ...acc, [c.id]: c.name }), {})
+        })
+    </div>
+    <button>Sauvegarder</button>
+</form>

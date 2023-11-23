@@ -1,0 +1,53 @@
+@layout('layout')
+
+@section('body')
+@!component('components/navbar')
+<h2 class="">Cours</h2>
+
+@if(auth.user.admin === 1)
+<section class="container">
+    <p>
+        <a href="{{ route('cours.create') }}">Ajouter un cours</a>
+    </p>
+</section>
+
+<main>
+    <ul>
+        @each(cour in cours)
+          <li>
+            <a href="{{ route('cours.show', { id: cour.id }) }}">
+                {{ cour.title }}
+            </a>
+            <form action="{{ route('cours.show', {id: cour.id}) }}?_method=DELETE" method="POST">
+                <button>
+                    Supprimer
+                </button>
+            </form>
+          </li>
+        @end
+    </ul>
+</main>
+@else
+<main>
+    <ul>
+        @each(cour in cours)
+          <li>
+            <a href="#">
+                {{ cour.title }}
+            </a>
+          </li>
+        @end
+    </ul>
+</main>
+@endif
+
+<nav>
+    <ul>
+        @each(anchor in cours.getUrlsForRange(1, cours.lastPage))
+        <li>
+            <a href="{{ anchor.url }}">{{ anchor.page }}</a>
+        </li>
+        @endeach
+    </ul>
+</nav>
+@endsection

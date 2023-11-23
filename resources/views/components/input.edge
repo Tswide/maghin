@@ -1,0 +1,23 @@
+<div>
+    <label for="{{ name }}">{{ label }}</label>
+    @if(options)
+      <select name="{{ name }}" id="{{ name }}" class="{{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}">
+        @each(key in Object.keys(options))
+          <option value="{{ key }}" {{ flashMessages.get('name') || value == key ? 'selected' : '' }}>{{ options[key] }}</option>
+        @end
+      </select>
+    @else
+      <input 
+        class="form-control {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
+        type="text" 
+        id="{{ name }}" 
+        name="{{ name }}" 
+        value="{{ flashMessages.get('name') || value || '' }}"
+      />
+    @end
+    @if(flashMessages.has(`errors.${name}`))
+      <div>
+        {{ flashMessages.get(`erros.${name}`) }}
+      </div>
+    @end
+</div>

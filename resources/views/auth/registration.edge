@@ -1,0 +1,36 @@
+@layout('layout')
+
+@section('body')
+<section class="flex flex-col justify-center items-center h-screen">
+  <div class="h w-full max-w-md bg-white shadow-md rounded border-4 border-border px-8 pt-10 pb-10 mb-4"">
+    <p class="text-base">Platforme profs / éleves - <span class="font-semibold">Maghin</span></p>
+    <h1 class="text-3xl font-bold text-gray-700 pt-1">Inscription</h1>
+    <form class="py-4" action="" method="post">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+          Email
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" id="username" type="email" placeholder="Username">
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+          Mot de passe
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******************">
+      </div>
+      <div class="mb-6">
+        <button class="bg-button hover:bg-hover ease-out duration-200 text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline">
+          Inscription
+        </button>
+      </div>
+      <p class="text-sm">
+        Tu as déja un compte?
+        <a class="inline-block align-baseline font-bold text-sm text-lien hover:text-hover" href="{{ route('login') }}">Connexion</a>
+      </p>
+    </form>
+  </div>
+  <p class="text-center text-gray-500 text-xs">
+    &copy;2023 Julien Jacobs. Tout droit réservé.
+  </p>
+</section>
+@end

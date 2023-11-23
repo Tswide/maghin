@@ -1,0 +1,57 @@
+@layout('layout')
+
+@section('body')
+@!component('components/navbar')
+
+<h2>Catégories</h2>
+
+@if(auth.user.admin === 1)
+<section class="container">
+    <p>
+        <a href="{{ route('categories.create') }}">Ajouter une categorie</a>
+    </p>
+</section>
+
+<main>
+    <h2>Categorie</h2>
+    <ul>
+        @each(categorie in categories)
+          <li>
+            <a href="{{ route('categories.show', { id: categorie.id }) }}">
+                {{ categorie.name }}
+            </a>
+            <form action="{{ route('categories.show', {id: categorie.id}) }}?_method=DELETE" method="POST">
+                <button>
+                    Supprimer
+                </button>
+            </form>
+          </li>
+        @end
+    </ul>
+
+    <h2>Utilisateurs</h2>
+    <ul>
+        @each(user in users)
+          <li>
+            {{ user.email }}
+            <form action="{{ route('users.show', {id: user.id}) }}?_method=DELETE" method="POST">
+                <button>
+                    Supprimer
+                </button>
+            </form>
+          </li>
+        @end
+    </ul>
+</main>
+@end
+
+<nav>
+    <ul>
+        @each(anchor in categories.getUrlsForRange(1, categories.lastPage))
+        <li>
+            <a href="{{ anchor.url }}">{{ anchor.page }}</a>
+        </li>
+        @endeach
+    </ul>
+</nav>
+@endsection

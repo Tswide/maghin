@@ -1,0 +1,21 @@
+<nav class="flex justify-between items-center bg-red-600 h-10">
+    <ul class="flex justify-between w-40">
+        <li class="ml">
+            <a href="{{ route('home') }}">
+                Accueil
+            </a>
+        </li>
+        @if(auth.user.admin === 1)
+        <li>
+            <a href="{{ route('dashboard') }}">
+                Dashboard
+            </a>
+        </li>
+        @endif
+    </ul>
+
+    <a href="{{ route('logout') }}">
+        Déconnexion
+    </a>
+    
+</nav>
