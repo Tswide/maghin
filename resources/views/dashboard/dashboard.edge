@@ -21,7 +21,7 @@
                 {{ categorie.name }}
             </a>
             <form action="{{ route('categories.show', {id: categorie.id}) }}?_method=DELETE" method="POST">
-                <button>
+                <button type="submit">
                     Supprimer
                 </button>
             </form>

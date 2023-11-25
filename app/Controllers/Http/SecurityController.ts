@@ -1,18 +1,19 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from '../../Models/User'
+import UpdateUserValidator from '../../Validators/UpdateUserValidator'
 
 export default class SecurityController {
   public async login ({ view }: HttpContextContract) {
     return view.render('auth/login')
   }
 
+  public async registration ({ view }: HttpContextContract) {
+    return view.render('auth/registration')
+  }
+
   public async logout ({ auth, response }: HttpContextContract) {
     await auth.logout()
     response.redirect().toRoute('login')
-  }
-
-  public async registration ({ view }: HttpContextContract) {
-    return view.render('auth/registration')
   }
 
   public async doLogin ({ request, auth, response, session }: HttpContextContract) {
@@ -27,20 +28,20 @@ export default class SecurityController {
       response.redirect().toRoute('login')
     }
   }
-
-  public async doRegistration ({ request, response, session }: HttpContextContract) {
-    const email = request.input('email')
-    const password = request.input('password')
+ 
+  public async doRegistration ({ request, auth, response, session }: HttpContextContract) {
+    const dataUser = await request.validate(UpdateUserValidator)
 
     try {
-      User.create({
-        email: email,
-        password: password,
-      })
-      response.redirect().toRoute('login')
+      const user = await User.create(dataUser)
+      user
+        .merge({ ...dataUser || false })
+        .save()
+      await auth.login(user)
+      return response.redirect('/')
     } catch {
-      session.flash({ error: 'Email déja existant' })
-      response.redirect().toRoute('registration')
+      session.flash({ error: 'email deja existant' })
+      response.redirect().toRoute('register')
     }
   }
 

@@ -39,7 +39,7 @@ Route.group(() => {
   Route.delete('/user/:id?', 'SecurityController.destroy')
 }).middleware('auth')
 
-Route.get('/inconnue', 'SecurityController.errors').as('inconnue')
+Route.get('/404', 'SecurityController.errors').as('inconnue')
 Route.get('/login', 'SecurityController.login').as('login')
 Route.post('/login', 'SecurityController.doLogin')
 Route.get('/logout', 'SecurityController.logout').as('logout')
