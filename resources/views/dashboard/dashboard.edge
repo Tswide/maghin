@@ -20,8 +20,8 @@
             <a href="{{ route('categories.show', { id: categorie.id }) }}">
                 {{ categorie.name }}
             </a>
-            <form action="{{ route('categories.show', {id: categorie.id}) }}?_method=DELETE" method="POST">
-                <button type="submit">
+            <form action="{{ route('categories.show', { id: categorie.id }) }}?_method=DELETE" method="POST">
+                <button>
                     Supprimer
                 </button>
             </form>

@@ -2,16 +2,16 @@
 
 @section('body')
 @!component('components/navbar')
-<h2 class="">Cours</h2>
+<main class="container bg-white border-2 rounded py-5 px-5 mt-5">
+    <h2 class="text-3xl font-bold text-gray-700">Cours</h2>
 
-@if(auth.user.admin === 1)
-<section class="container">
-    <p>
-        <a href="{{ route('cours.create') }}">Ajouter un cours</a>
-    </p>
-</section>
+    @if(auth.user.admin === 1)
+    <section>
+        <button class="bg-button hover:bg-hover text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{{ route('cours.create') }}">Ajouter un cours</a>
+        </button>
+    </section>
 
-<main>
     <ul>
         @each(cour in cours)
           <li>
@@ -26,21 +26,16 @@
           </li>
         @end
     </ul>
-</main>
 @else
-<main>
     <ul>
         @each(cour in cours)
           <li>
-            <a href="#">
-                {{ cour.title }}
-            </a>
+            {{ cour.title }}
           </li>
         @end
     </ul>
-</main>
 @endif
-
+</main>
 <nav>
     <ul>
         @each(anchor in cours.getUrlsForRange(1, cours.lastPage))
