@@ -2,47 +2,51 @@
 
 @section('body')
 @!component('components/navbar')
-<main class="container bg-white border-2 rounded py-5 px-5 mt-5">
+<main class="container mt-5">
     <h2 class="text-3xl font-bold text-gray-700">Cours</h2>
 
-    @if(auth.user.admin === 1)
-    <section>
-        <button class="bg-button hover:bg-hover text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <a href="{{ route('cours.create') }}">Ajouter un cours</a>
-        </button>
-    </section>
+    <section class="container bg-white border-2 rounded py-5 px-5 mt-2">
+        @if(auth.user.admin === 1)
+            <section>
+                <a href="{{ route('cours.create') }}">
+                    <button class="bg-button hover:bg-hover text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Ajouter un cours
+                    </button>
+                </a>
+            </section>
 
-    <ul>
-        @each(cour in cours)
-          <li>
-            <a href="{{ route('cours.show', { id: cour.id }) }}">
-                {{ cour.title }}
-            </a>
-            <form action="{{ route('cours.show', {id: cour.id}) }}?_method=DELETE" method="POST">
-                <button>
-                    Supprimer
-                </button>
-            </form>
-          </li>
-        @end
-    </ul>
-@else
-    <ul>
-        @each(cour in cours)
-          <li>
-            {{ cour.title }}
-          </li>
-        @end
-    </ul>
-@endif
+            <ul>
+                @each(cour in cours)
+                <li>
+                    <a href="{{ route('cours.show', { id: cour.id }) }}">
+                        {{ cour.title }}
+                    </a>
+                    <form action="{{ route('cours.show', {id: cour.id}) }}?_method=DELETE" method="POST">
+                        <button>
+                            Supprimer
+                        </button>
+                    </form>
+                </li>
+                @end
+            </ul>
+        @else
+            <ul>
+                @each(cour in cours)
+                <li>
+                    {{ cour.title }}
+                </li>
+                @end
+            </ul>
+        @endif
+        <nav>
+            <ul>
+                @each(anchor in cours.getUrlsForRange(1, cours.lastPage))
+                <li>
+                    <a href="{{ anchor.url }}">{{ anchor.page }}</a>
+                </li>
+                @endeach
+            </ul>
+        </nav>
+    </section>
 </main>
-<nav>
-    <ul>
-        @each(anchor in cours.getUrlsForRange(1, cours.lastPage))
-        <li>
-            <a href="{{ anchor.url }}">{{ anchor.page }}</a>
-        </li>
-        @endeach
-    </ul>
-</nav>
 @endsection

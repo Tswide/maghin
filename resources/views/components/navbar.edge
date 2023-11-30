@@ -1,21 +1,20 @@
 <nav class="flex justify-between items-center h-10 bg-white rounded mt-5 py-6 px-5 border-2">
-    <ul class="flex justify-between w-44">
-        <li>
-            <a href="{{ route('home') }}" class="text-lg text-lien hover:text-hover">
-                Accueil
+    <ul class="flex justify-between">
+        <li class="mr-5">
+            <a href="{{ route('home') }}" class="text-2xl font-title_text hover:text-hover">
+                Maghin
             </a>
         </li>
         @if(auth.user.admin === 1)
         <li>
-            <a href="{{ route('dashboard') }}" class="text-lg text-gray-500 hover:text-hover">
+            <a href="{{ route('dashboard') }}" class="text-lg font-second_text hover:text-hover">
                 Dashboard
             </a>
         </li>
         @endif
     </ul>
 
-    <a href="{{ route('logout') }}" class="text-lg text-lien hover:text-hover">
+    <a href="{{ route('logout') }}" class="text-lg text-lien font-title_text hover:text-hover">
         Déconnexion
-    </a>
-    
+    </a>   
 </nav>
