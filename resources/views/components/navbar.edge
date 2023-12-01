@@ -1,20 +1,23 @@
-<nav class="flex justify-between items-center h-10 bg-white rounded mt-5 py-6 px-5 border-2">
-    <ul class="flex justify-between">
-        <li class="mr-5">
-            <a href="{{ route('home') }}" class="text-2xl font-title_text hover:text-hover">
-                Maghin
-            </a>
-        </li>
+<nav class="flex justify-between items-end h-14 mt-5 py-6 ">
+    <a href="{{ route('home') }}" class="text-3xl font-title_text text-lien">Maghin</a>
+    
+    <pannel class="flex items-center    ">
         @if(auth.user.admin === 1)
-        <li>
-            <a href="{{ route('dashboard') }}" class="text-lg font-second_text hover:text-hover">
-                Dashboard
-            </a>
-        </li>
+        <a href="{{ route('dashboard') }}" class="flex items-center mr-5">
+            <p class="text-lg font-paragraphe text-title_text hover:text-hover mr-1">
+                Bienvenue <span class="font-title_text">{{ auth.user.username }}</span>
+            </p>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-2 text-orange-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+            </svg>
+        </a>
         @endif
-    </ul>
 
-    <a href="{{ route('logout') }}" class="text-lg text-lien font-title_text hover:text-hover">
-        Déconnexion
-    </a>   
+        <a href="{{ route('logout') }}" class="text-base">
+            <button class="bg-button hover:bg-hover text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline">
+                Déconnexion
+            </button>
+        </a>  
+    </pannel> 
 </nav>

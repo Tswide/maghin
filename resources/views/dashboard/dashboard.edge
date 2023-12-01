@@ -2,10 +2,9 @@
 
 @section('body')
 @!component('components/navbar')
-
+@if(auth.user.admin === 1)
 <h2>Catégories</h2>
 
-@if(auth.user.admin === 1)
 <section class="container">
     <p>
         <a href="{{ route('categories.create') }}">Ajouter une categorie</a>
@@ -43,7 +42,6 @@
         @end
     </ul>
 </main>
-@end
 
 <nav>
     <ul>
@@ -54,4 +52,5 @@
         @endeach
     </ul>
 </nav>
+@end
 @endsection
