@@ -6,15 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: '#FDFDFE',
-        second_background: '#F7F9FF',
-        button: '#3E63DD',
-        border: '#ABBDF9',
-        lien: '#3E63DD',
-        hover: '#3A5BC7',
+        background: '#212225',
+        second_background: '#18191B',
+        button: '#3A4F97',
+        border: '#3A4F97',
+        lien: '#9EB1FF',
+        hover: '#D6E1FF',
 
-        title_text: '#202020',
-        paragraphe: '#646464'
+        title_text: '#EEEEEE',
+        paragraphe: '#B4B4B4',
+        special: '#FF977D'
       },
       fontWeight: {
         title_text: '700',

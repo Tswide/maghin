@@ -22,6 +22,9 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.get('/', 'CoursController.index').as('home')
+}).middleware('auth')
+
+Route.group(() => {
   Route.get('/cour/new', 'CoursController.create').as('cours.create')
   Route.post('/cour/new', 'CoursController.store')
   Route.get('/cour/:id?', 'CoursController.show').as('cours.show')
@@ -37,11 +40,11 @@ Route.group(() => {
 
   Route.get('/user/:id?', 'DashboardController.show').as('users.show')
   Route.delete('/user/:id?', 'SecurityController.destroy')
-}).middleware('auth')
+}).middleware('adminCheck')
 
 Route.get('/404', 'SecurityController.errors').as('inconnue')
-Route.get('/login', 'SecurityController.login').as('login')
+Route.get('/login', 'SecurityController.login').middleware('redirectIfAuthenticated').as('login')
 Route.post('/login', 'SecurityController.doLogin')
 Route.get('/logout', 'SecurityController.logout').as('logout')
-Route.get('/registration', 'SecurityController.registration').as('registration')
+Route.get('/registration', 'SecurityController.registration').middleware('redirectIfAuthenticated').as('registration')
 Route.post('/registration', 'SecurityController.doRegistration')

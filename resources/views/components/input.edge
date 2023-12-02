@@ -9,7 +9,7 @@
     @else
       <input 
         class="form-control {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
-        type="text" 
+        type="{{ type || 'text' }}" 
         id="{{ name }}" 
         name="{{ name }}" 
         value="{{ flashMessages.get('name') || value || '' }}"

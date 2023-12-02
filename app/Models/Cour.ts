@@ -11,10 +11,7 @@ export default class Cour extends BaseModel {
   public title: string
 
   @column()
-  public file: string
-
-  @column()
-  public thumbnail: string | null
+  public file: string | null
 
   @belongsTo(() => Category)
   public category: BelongsTo<typeof Category>

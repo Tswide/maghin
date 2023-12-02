@@ -22,10 +22,11 @@ export default class SecurityController {
 
     try {
       await auth.use('web').attempt(email, password)
-      response.redirect().toRoute('home')
+      session.put('user', auth.user?.id)
+      return response.redirect().toRoute('home') // Redirect to the home page or another page
     } catch {
       session.flash({ error: 'Identifiant incorrect' })
-      response.redirect().toRoute('login')
+      return response.redirect().toRoute('login')
     }
   }
  

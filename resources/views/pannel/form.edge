@@ -3,7 +3,14 @@
         @!component('components/input', {
             label: 'Titre',
             name: 'title',
-            value: cour.title
+            value: cour.title,
+        })
+    </div>
+    <div>
+        @!component('components/input', {
+            label: 'Fichier PDF',
+            name: 'pdf_file',
+            type: 'file'
         })
     </div>
     <div>

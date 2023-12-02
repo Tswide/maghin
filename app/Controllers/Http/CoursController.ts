@@ -2,7 +2,9 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cour from '../../Models/Cour'
 import UpdateCourValidator from '../../Validators/UpdateCourValidator'
 import Database from '@ioc:Adonis/Lucid/Database'
+import {string} from '@ioc:Adonis/Core/Helpers'
 import Category from '../../Models/Category'
+import drive from '@ioc:Adonis/Core/Drive'
 
 export default class CoursController {
   public async index ({ view, request }: HttpContextContract) {
@@ -46,6 +48,9 @@ export default class CoursController {
   public async destroy ({ params, session, response }: HttpContextContract) {
     const cour = await Cour.findOrFail(params.id)
     await cour.delete()
+    if(cour.file) {
+      drive.delete(cour.file)
+    }
     session.flash({ success:'Le cour a bien ete supprimer' })
     return response.redirect().toRoute('home')
   }
@@ -53,6 +58,15 @@ export default class CoursController {
   // eslint-disable-next-line max-len
   private async handleRequest (params: HttpContextContract['params'], request: HttpContextContract['request']) {
     const cour = params.id ? await Cour.findOrFail(params.id) : new Cour()
+    const pdf = request.file('pdf_file')
+    if(pdf) {
+      if(cour.file) {
+        drive.delete(cour.file)
+      }
+      const newName = string.generateRandom(20) + '.' + pdf.extname
+      await pdf.moveToDisk('./', {name:newName})
+      cour.file = newName
+    }
     const dataCour = await request.validate(UpdateCourValidator)
     cour
       .merge({ ...dataCour || false })
