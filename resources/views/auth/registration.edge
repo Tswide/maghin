@@ -3,39 +3,45 @@
 @section('body')
 <section class="flex flex-col justify-center items-center h-screen">
   <div class="h w-full max-w-md bg-second_background shadow-md rounded border-4 border-border px-8 pt-10 pb-10 mb-4"">
-    <p class="text-base text-paragraphe">Platforme profs / éleves - <span class="font-semibold text-special">Maghin</span></p>
+    <p class="text-base text-title_text">Platforme profs / éleves - <span class="font-semibold text-special">Maghin</span></p>
     <h1 class="text-3xl font-bold text-lien pt-1">Inscription</h1>
     <form class="py-4" action="" method="post">
       <div class="mb-4">
-        <label class="block text-paragraphe text-sm font-bold mb-2" for="username">
-          Pseudo
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-paragraphe leading-tight focus:outline-none focus:shadow-outline" name="username" id="username" type="text" placeholder="Pseudo">
+        @!component('components/input', {
+            label: 'Pseudo',
+            name: 'username',
+            placeholder: 'Johny'
+        })
       </div>
       <div class="mb-4">
-        <label class="block text-paragraphe text-sm font-bold mb-2" for="email">
-          Email
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-paragraphe leading-tight focus:outline-none focus:shadow-outline" name="email" id="email" type="email" placeholder="Email">
+        @!component('components/input', {
+            label: 'Email',
+            name: 'email',
+            type: 'email',
+            placeholder: 'johndoe@yopmail.com'
+        })
       </div>
       <div class="mb-6">
-        <label class="block text-paragraphe text-sm font-bold mb-2" for="password">
-          Mot de passe
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-title_text leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******************">
+        @!component('components/input', {
+            label: 'Mot de passe',
+            name: 'password',
+            type: 'password',
+            placeholder: '**********'
+        })
       </div>
       <div class="mb-6">
-        <button class="bg-button hover:bg-hover hover:text-background ease-out duration-200 text-paragraphe font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline">
-          Inscription
-        </button>
+        @!component('components/button',{
+          title: 'Inscription',
+          type: 'full'
+        })
       </div>
-      <p class="text-sm text-paragraphe">
+      <p class="text-sm text-title_text">
         Tu as déja un compte?
         <a class="inline-block align-baseline font-bold text-sm text-lien hover:text-hover" href="{{ route('login') }}">Connexion</a>
       </p>
     </form>
   </div>
-  <p class="text-center text-paragraphe text-xs">
+  <p class="text-center text-title_text text-xs">
     &copy;2023 Julien Jacobs. Tout droit réservé.
   </p>
 </section>

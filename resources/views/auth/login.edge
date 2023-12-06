@@ -3,39 +3,39 @@
 @section('body')
 <section class="flex flex-col justify-center items-center h-screen">
   <div class="h w-full max-w-md bg-second_background shadow-md rounded border-4 border-border px-8 pt-10 pb-10 mb-4"">
-    <p class="text-base text-paragraphe">Platforme profs / éleves - <span class="font-semibold text-special">Maghin</span></p>
-    <h1 class="text-3xl font-bold text-lien pt-1">Connexion</h1>
-    <form class="py-4" action="" method="post">
+    <p class="text-base text-title_text">Platforme profs / éleves - <span class="font-semibold text-special">Maghin</span></p>
+    <h1 class="text-3xl font-bold text-title_text pt-1">Connexion</h1>
+    <form class="py-5" action="" method="post">
       <div class="mb-4">
-        <label class="block text-paragraphe text-sm font-bold mb-2" for="username">
-          Email
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-paragraphe leading-tight focus:outline-none focus:shadow-outline" name="email" id="username" type="email" placeholder="Username">
+        @!component('components/input', {
+            label: 'Email',
+            name: 'email',
+            type: 'email',
+            placeholder: 'johndoe@yopmail.com'
+        })
       </div>
       <div class="mb-6">
-        <label class="block text-paragraphe text-sm font-bold mb-2" for="password">
-          Mot de passe
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-paragraphe mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******************">
-        <!-- 
-          <p class="text-red-500 text-xs italic">Veuillez insérer un mot de passe.</p>
-        -->
+        @!component('components/input', {
+            label: 'Mot de passe',
+            name: 'password',
+            type: 'password',
+            placeholder: '**********'
+        })
+        <p class="text-xs text-paragraphe">*Minimum 8 caractere</p>
       </div>
-      <div class="flex items-center justify-between pb-6">
-        <button class="bg-button hover:bg-hover hover:text-background text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-          Connexion
-        </button>
-        <a class="inline-block align-baseline font-bold text-sm text-lien hover:text-hover" href="{{ route('inconnue') }}">
-          Mot de passe oublier?
-        </a>
+      <div class="pb-6">
+        @!component('components/button',{
+          title: 'Connexion',
+          type: 'full'
+        })
       </div>
-      <p class="text-sm text-paragraphe">
+      <p class="text-sm text-title_text">
         Tu n'as pas de compte?
         <a class="inline-block align-baseline font-bold text-sm text-lien hover:text-hover" href="{{ route('registration') }}">Commence ici</a>
       </p>
     </form>
   </div>
-  <p class="text-center text-paragraphe text-xs">
+  <p class="text-center text-title_text text-xs">
     &copy;2023 Julien Jacobs. Tout droit réservé.
   </p>
 </section>

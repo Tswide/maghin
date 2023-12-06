@@ -5,9 +5,8 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import User from '../../Models/User'
 
 export default class DashboardController {
-  public async index ({ view, request, auth }: HttpContextContract) {
-    const page = request.input('page', 1)
-    const categories = await Database.from(Category.table).paginate(page, 10)
+  public async index ({ view, auth }: HttpContextContract) {
+    const categories = await Database.from(Category.table)
     const users = await Database.from(User.table)
 
     await auth.use('web').authenticate()

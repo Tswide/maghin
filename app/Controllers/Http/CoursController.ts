@@ -7,11 +7,12 @@ import Category from '../../Models/Category'
 import drive from '@ioc:Adonis/Core/Drive'
 
 export default class CoursController {
-  public async index ({ view, request }: HttpContextContract) {
-    const page = request.input('page', 1)
-    const cours = await Database.from(Cour.table).paginate(page, 2)
+  public async index ({ view }: HttpContextContract) {
+    const cours = await Database.from(Cour.table)
+    const categories = await Database.from(Category.table)
     return view.render('pannel/index', {
       cours,
+      categories,
     })
   }
 

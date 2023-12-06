@@ -1,18 +1,27 @@
-<div>
-    <label for="{{ name }}">{{ label }}</label>
+    <label class="block text-title_text text-base font-bold mb-2" for="{{ name }}">{{ label }}</label>
     @if(options)
       <select name="{{ name }}" id="{{ name }}" class="{{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}">
         @each(key in Object.keys(options))
           <option value="{{ key }}" {{ flashMessages.get('name') || value == key ? 'selected' : '' }}>{{ options[key] }}</option>
         @end
       </select>
+    @elseif(type === 'file')
+      <input 
+        class="shadow appearance-none w-full text-lien font-second_text leading-tight focus:outline-none focus:shadow-outline {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
+        type="{{ type }}" 
+        id="{{ name }}" 
+        name="{{ name }}" 
+        value="{{ flashMessages.get('name') || value || '' }}"
+        placeholder="{{placeholder}}"
+      />
     @else
       <input 
-        class="form-control {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-lien font-second_text leading-tight focus:outline-none focus:shadow-outline {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
         type="{{ type || 'text' }}" 
         id="{{ name }}" 
         name="{{ name }}" 
         value="{{ flashMessages.get('name') || value || '' }}"
+        placeholder="{{placeholder}}"
       />
     @end
     @if(flashMessages.has(`errors.${name}`))
@@ -20,4 +29,3 @@
         {{ flashMessages.get(`erros.${name}`) }}
       </div>
     @end
-</div>

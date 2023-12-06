@@ -3,54 +3,37 @@
 @section('body')
 @!component('components/navbar')
 @if(auth.user.admin === 1)
-<h2>Catégories</h2>
-
-<section class="container">
-    <p>
-        <a href="{{ route('categories.create') }}">Ajouter une categorie</a>
-    </p>
-</section>
-
 <main>
-    <h2>Categorie</h2>
-    <ul>
-        @each(categorie in categories)
-          <li>
-            <a href="{{ route('categories.show', { id: categorie.id }) }}">
-                {{ categorie.name }}
-            </a>
-            <form action="{{ route('categories.show', { id: categorie.id }) }}?_method=DELETE" method="POST">
-                <button>
-                    Supprimer
-                </button>
-            </form>
-          </li>
-        @end
-    </ul>
+    <h1 class="text-title_text text-2xl font-title_text mt-5">Dashboard</h1>
+    <section class="flex justify-between bg-second_background border-2 border-border rounded py-5 px-5 mt-2">  
+        <div id="categorie" class="bg-sky-50">
+            <h2>Categorie</h2>
+            <ul>
+                @each(categorie in categories)
+                <li class="flex">
+                    <a href="{{ route('categories.show', { id: categorie.id }) }}">{{ categorie.name }}</a>
+                    <form action="{{ route('categories.show', { id: categorie.id }) }}?_method=DELETE" method="POST">
+                        <button>Supprimer</button>
+                    </form>
+                </li>
+                @end
+            </ul>
+        </div>
 
-    <h2>Utilisateurs</h2>
-    <ul>
-        @each(user in users)
-          <li>
-            {{ user.email }}
-            <form action="{{ route('users.show', {id: user.id}) }}?_method=DELETE" method="POST">
-                <button>
-                    Supprimer
-                </button>
-            </form>
-          </li>
-        @end
-    </ul>
+        <div id="Utilisateurs" class="bg-sky-50">
+            <h2>Utilisateurs</h2>
+            <ul>
+                @each(user in users)
+                <li>
+                    {{ user.email }}
+                    <form action="{{ route('users.show', {id: user.id}) }}?_method=DELETE" method="POST">
+                        <button>Supprimer</button>
+                    </form>
+                </li>
+                @end
+            </ul>
+        </div>
+    </section>
 </main>
-
-<nav>
-    <ul>
-        @each(anchor in categories.getUrlsForRange(1, categories.lastPage))
-        <li>
-            <a href="{{ anchor.url }}">{{ anchor.page }}</a>
-        </li>
-        @endeach
-    </ul>
-</nav>
 @end
-@endsection
+@end
