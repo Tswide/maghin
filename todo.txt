@@ -1,15 +1,10 @@
 
 -Index
     - Rajouter un filter de cours
-    - Mettre le fichier a telecharger sur la card -> N'est pas reconnue "fichier n'existe pas sur le project"
-    - Le titre des card et categorie en DashCase
+    - Dropdown le nom des categorie
     
 - Modification et Ajout
     - Designer vite fait
 
 - Dashboard 
     - Cree les card pour les categorie et users
-
-
-
-les flash session en bas a droite

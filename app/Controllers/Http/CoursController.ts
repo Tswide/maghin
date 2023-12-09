@@ -4,21 +4,33 @@ import UpdateCourValidator from '../../Validators/UpdateCourValidator'
 import Database from '@ioc:Adonis/Lucid/Database'
 import {string} from '@ioc:Adonis/Core/Helpers'
 import Category from '../../Models/Category'
-import drive from '@ioc:Adonis/Core/Drive'
+import Drive from '@ioc:Adonis/Core/Drive'
 
 export default class CoursController {
   public async index ({ view }: HttpContextContract) {
     const cours = await Database.from(Cour.table)
     const categories = await Database.from(Category.table)
+
+    const formattedCours = cours.map((cour) => ({
+      ...cour,
+      title: string.capitalCase(cour.title),
+    }))
+    
+    const formattedCategories = categories.map((category) => ({
+      ...category,
+      name: string.capitalCase(category.name),
+    }))
+
     return view.render('pannel/index', {
-      cours,
-      categories,
+      cours: formattedCours,
+      categories: formattedCategories,
     })
   }
 
   public async create ({ view }: HttpContextContract) {
     const cour = new Cour()
     const categories = await Category.all()
+    
     return view.render('pannel/create', {
       cour,
       categories,
@@ -34,9 +46,20 @@ export default class CoursController {
   public async show ({ params, view }: HttpContextContract) {
     const cour = await Cour.findOrFail(params.id)
     const categories = await Category.all()
+
+    const formattedCour = {
+      ...cour,
+      title: string.capitalCase(cour.title),
+    }
+
+    const formattedCategories = categories.map((category) => ({
+      ...category,
+      name: string.capitalCase(category.name),
+    }))
+
     return view.render('pannel/show', {
-      cour,
-      categories,
+      cour: formattedCour,
+      categories: formattedCategories,
     })
   }
 
@@ -50,7 +73,7 @@ export default class CoursController {
     const cour = await Cour.findOrFail(params.id)
     await cour.delete()
     if(cour.file) {
-      drive.delete(cour.file)
+      Drive.delete(cour.file)
     }
     session.flash({ success:'Le cour a bien ete supprimer' })
     return response.redirect().toRoute('home')
@@ -62,11 +85,13 @@ export default class CoursController {
     const pdf = request.file('pdf_file')
     if(pdf) {
       if(cour.file) {
-        drive.delete(cour.file)
+        Drive.delete(cour.file)
       }
       const newName = string.generateRandom(20) + '.' + pdf.extname
       await pdf.moveToDisk('./', {name:newName})
-      cour.file = newName
+
+      const url = await Drive.getUrl(newName)
+      cour.file = url
     }
     const dataCour = await request.validate(UpdateCourValidator)
     cour

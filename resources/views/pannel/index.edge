@@ -23,7 +23,7 @@
                 @if(cour.category_id === categorie.id)
                     @if(auth.user.admin === 1)
                     <article class="bg-second_background border-2 border-border rounded flex flex-col py-5 px-5 gap-3">
-                        <a href="upload/{{ cour.file }}" download class="flex items-center gap-2">
+                        <a href="{{ cour.file }}" download class="flex items-center gap-2">
                             <h3 class="text-lg text-title_text font-second_text">{{ cour.title }}</h3>
                         </a>
                                 

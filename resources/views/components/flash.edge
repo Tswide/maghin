@@ -1,11 +1,11 @@
 @if(flashMessages.has('success'))
-  <div>
+  <div class="absolute bottom-2 right-2 bg-second_background text-title_text">
     {{ inspect(flashMessages.get('success')) }}
   </div>
 @end
 
 @if(flashMessages.has('error'))
-  <div>
+  <div class="absolute ottom-2 right-2 bg-second_background text-title_text">
     {{ inspect(flashMessages.get('error')) }}
   </div>
 @end
