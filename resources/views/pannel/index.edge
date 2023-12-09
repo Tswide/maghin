@@ -4,15 +4,32 @@
 @!component('components/navbar')
 
 <main class="container mt-5">
-    <section class="flex items-center">
-        <h2 class="text-2xl font-title_text text-title_text mr-5">Cours</h2>
-        @if(auth.user.admin === 1)
-        <a href="{{ route('cours.create') }}">
-            @!component('components/button', {
-                title: 'Ajouter',
+    <section class="flex items-center justify-between">
+        <div class="flex">
+            <h2 class="text-2xl font-title_text text-title_text mr-5">Cours</h2>
+            @if(auth.user.admin === 1)
+            <a href="{{ route('cours.create') }}">
+                @!component('components/button', {
+                    title: 'Ajouter',
+                })
+            </a>
+            @end
+        </div>
+        <div>
+            @!component('components/input', {
+                name: 'pattern',
+                label: 'Nom du cour',
+                placeholder: 'Enduisage...'
             })
-        </a>
-        @end
+
+            {{--  TODO: Mettre en place un input de type selection option des categories.  --}}
+            {{--  @!component('components/input', {
+                name: 'categoryType',
+                label: 'Categorie',
+                option:
+            })  --}}
+            
+        </div>
     </section>
     <section class="flex flex-col gap-10 mt-3">
         @each(categorie in categories)
@@ -20,7 +37,7 @@
             <hgroup class="text-xl font-title_text text-lien ">{{ categorie.name }}</hgroup>
             <section class="mt-4 flex flex-wrap gap-8">
             @each(cour in cours)
-                @if(cour.category_id === categorie.id)
+                @if(cour.categoryId === categorie.id)
                     @if(auth.user.admin === 1)
                     <article class="bg-second_background border-2 border-border rounded flex flex-col py-5 px-5 gap-3">
                         <a href="{{ cour.file }}" download class="flex items-center gap-2">
@@ -48,7 +65,6 @@
                     <p class="w-1/6 flex justify-center bg-second_background border-2 border-border rounded py-5 px-5 text-xl text-title_text font-second_text hover:text-lien ease-in-out duration-300">{{ cour.title }}</p>
                     @end
                 @end
-                
             @end
             </section>
         </menu>

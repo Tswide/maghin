@@ -5,6 +5,8 @@
     
 - Modification et Ajout
     - Designer vite fait
+    - Redemande le fichier
+    - undefined ??
 
 - Dashboard 
     - Cree les card pour les categorie et users

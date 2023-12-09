@@ -1,29 +1,21 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cour from '../../Models/Cour'
 import UpdateCourValidator from '../../Validators/UpdateCourValidator'
-import Database from '@ioc:Adonis/Lucid/Database'
 import {string} from '@ioc:Adonis/Core/Helpers'
 import Category from '../../Models/Category'
 import Drive from '@ioc:Adonis/Core/Drive'
 
 export default class CoursController {
-  public async index ({ view }: HttpContextContract) {
-    const cours = await Database.from(Cour.table)
-    const categories = await Database.from(Category.table)
-
-    const formattedCours = cours.map((cour) => ({
-      ...cour,
-      title: string.capitalCase(cour.title),
-    }))
-    
-    const formattedCategories = categories.map((category) => ({
-      ...category,
-      name: string.capitalCase(category.name),
-    }))
+  public async index ({ view, request }: HttpContextContract) {
+    const {pattern, categoryType} = await request.qs()
+    const categories = await Category.query().orderBy('id')
+    const cours = await Cour.query()
+      .if(pattern, query => query.whereLike('title', `%${pattern}%`))
+      .if(categoryType, query => query.where({ categoryType }))
 
     return view.render('pannel/index', {
-      cours: formattedCours,
-      categories: formattedCategories,
+      cours,
+      categories,
     })
   }
 
