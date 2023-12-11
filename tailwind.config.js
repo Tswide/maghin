@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         background: '#FCFCFD',
         second_background: '#F9F9FB',
+        special_background: '#FFF8F7',
         button: '#D2DEFF',
         border: '#ABBDF9',
         lien: '#60646C',

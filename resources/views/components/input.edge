@@ -1,6 +1,6 @@
     <label class="block text-title_text text-base font-bold mb-2" for="{{ name }}">{{ label }}</label>
     @if(options)
-      <select name="{{ name }}" id="{{ name }}" class="{{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}">
+      <select name="{{ name }}" id="{{ name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-lien font-second_text leading-tight focus:outline-none focus:shadow-outline {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}} ">
         @each(key in Object.keys(options))
           <option value="{{ key }}" {{ flashMessages.get('name') || value == key ? 'selected' : '' }}>{{ options[key] }}</option>
         @end

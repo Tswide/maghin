@@ -4,8 +4,8 @@
 @!component('components/navbar')
 
 <main class="container mt-5">
-    <section class="flex items-center justify-between">
-        <div class="flex">
+    <header class="flex items-center justify-between bg-special_background py-2 px-3 border-2 rounded">
+        <div class="flex items-center">
             <h2 class="text-2xl font-title_text text-title_text mr-5">Cours</h2>
             @if(auth.user.admin === 1)
             <a href="{{ route('cours.create') }}">
@@ -15,22 +15,20 @@
             </a>
             @end
         </div>
-        <div>
-            @!component('components/input', {
-                name: 'pattern',
-                label: 'Nom du cour',
-                placeholder: 'Enduisage...'
-            })
+        <form action="{{ route('home') }}" method="get" class="w-1/4 flex flex-row justify-between gap-2">
+            <input 
+                class="w-full shadow appearance-none border rounded py-2 px-3 text-lien font-second_text leading-tight focus:outline-none focus:shadow-outline {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
+                type="text" id="pattern" name="pattern" placeholder="Enduisage ..."
+            />
+            <button type="submit" class="bg-button py-2 px-3 rounded hover:bg-special ease-out duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </form>
+    </header>
 
-            {{--  TODO: Mettre en place un input de type selection option des categories.  --}}
-            {{--  @!component('components/input', {
-                name: 'categoryType',
-                label: 'Categorie',
-                option:
-            })  --}}
-            
-        </div>
-    </section>
     <section class="flex flex-col gap-10 mt-3">
         @each(categorie in categories)
         <menu>

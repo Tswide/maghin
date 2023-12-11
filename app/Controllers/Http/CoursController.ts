@@ -4,14 +4,14 @@ import UpdateCourValidator from '../../Validators/UpdateCourValidator'
 import {string} from '@ioc:Adonis/Core/Helpers'
 import Category from '../../Models/Category'
 import Drive from '@ioc:Adonis/Core/Drive'
+import CourSearchValidator from '../../Validators/CourSearchValidator'
 
 export default class CoursController {
   public async index ({ view, request }: HttpContextContract) {
-    const {pattern, categoryType} = await request.qs()
+    const {pattern} = await request.qs()
     const categories = await Category.query().orderBy('id')
     const cours = await Cour.query()
       .if(pattern, query => query.whereLike('title', `%${pattern}%`))
-      .if(categoryType, query => query.where({ categoryType }))
 
     return view.render('pannel/index', {
       cours,
@@ -39,19 +39,9 @@ export default class CoursController {
     const cour = await Cour.findOrFail(params.id)
     const categories = await Category.all()
 
-    const formattedCour = {
-      ...cour,
-      title: string.capitalCase(cour.title),
-    }
-
-    const formattedCategories = categories.map((category) => ({
-      ...category,
-      name: string.capitalCase(category.name),
-    }))
-
     return view.render('pannel/show', {
-      cour: formattedCour,
-      categories: formattedCategories,
+      cour,
+      categories,
     })
   }
 
@@ -65,7 +55,7 @@ export default class CoursController {
     const cour = await Cour.findOrFail(params.id)
     await cour.delete()
     if(cour.file) {
-      Drive.delete(cour.file)
+      Drive.delete('upload/' + cour.file)
     }
     session.flash({ success:'Le cour a bien ete supprimer' })
     return response.redirect().toRoute('home')
