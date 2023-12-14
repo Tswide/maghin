@@ -10,7 +10,8 @@
         @!component('components/input', {
             label: 'Pseudo',
             name: 'username',
-            placeholder: 'Johny'
+            placeholder: 'Johny',
+            value: request.input('username') ?? ''
         })
       </div>
       <div class="mb-4">
@@ -18,7 +19,8 @@
             label: 'Email',
             name: 'email',
             type: 'email',
-            placeholder: 'johndoe@yopmail.com'
+            placeholder: 'johndoe@yopmail.com',
+            value: request.input('email') ?? ''
         })
       </div>
       <div class="mb-6">
@@ -26,7 +28,8 @@
             label: 'Mot de passe',
             name: 'password',
             type: 'password',
-            placeholder: '**********'
+            placeholder: '**********',
+            value: request.input('password') ?? ''
         })
       </div>
       <div class="mb-6">

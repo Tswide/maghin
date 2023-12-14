@@ -1,6 +1,7 @@
+-login register
+    -renvoyer des message en cas d'input non completer
 
 -Index
-    - Rajouter un filter de cours
     - Dropdown le nom des categorie
     
 - Modification et Ajout

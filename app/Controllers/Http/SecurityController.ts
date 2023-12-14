@@ -16,33 +16,33 @@ export default class SecurityController {
     response.redirect().toRoute('login')
   }
 
-  public async doLogin ({ request, auth, response, session }: HttpContextContract) {
-    const email = request.input('email')
-    const password = request.input('password')
-
+  public async doLogin({ request, auth, response, view, session }: HttpContextContract) {
+    const email = request.input('email');
+    const password = request.input('password');
+  
     try {
-      await auth.use('web').attempt(email, password)
-      session.put('user', auth.user?.id)
-      return response.redirect().toRoute('home') // Redirect to the home page or another page
-    } catch {
-      session.flash({ error: 'Identifiant incorrect' })
-      return response.redirect().toRoute('login')
-    }
+      await auth.use('web').attempt(email, password);
+      session.put('user', auth.user?.id);
+      return response.redirect().toRoute('home');
+    } catch (error) {
+      if (error.code === 'E_INVALID_AUTH_PASSWORD') {
+        return view.render('auth/login', { error: "Mot de passe incorrect", email });
+      }
+      
+      return view.render('auth/login', { error: "Email incorrect", email });
+      }
   }
- 
+  
   public async doRegistration ({ request, auth, response, session }: HttpContextContract) {
     const dataUser = await request.validate(UpdateUserValidator)
 
     try {
       const user = await User.create(dataUser)
-      user
-        .merge({ ...dataUser || false })
-        .save()
       await auth.login(user)
       return response.redirect('/')
     } catch {
       session.flash({ error: 'email deja existant' })
-      response.redirect().toRoute('register')
+      return response.redirect().toRoute('registration')
     }
   }
 

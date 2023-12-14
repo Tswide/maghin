@@ -11,8 +11,14 @@
             label: 'Email',
             name: 'email',
             type: 'email',
-            placeholder: 'johndoe@yopmail.com'
+            placeholder: 'johndoe@yopmail.com',
+            value: email
         })
+        @if(error && error.includes("Email incorrect"))
+          <div class="text-red-400 font-semibold text-sm mb-4">
+            {{ error }}
+          </div>
+        @endif
       </div>
       <div class="mb-6">
         @!component('components/input', {
@@ -21,7 +27,11 @@
             type: 'password',
             placeholder: '**********'
         })
-        <p class="text-xs text-paragraphe">*Minimum 8 caractere</p>
+        @if(error && error.includes("Mot de passe incorrect"))
+          <div class="text-red-400 font-semibold text-sm mb-4">
+            {{ error }}
+          </div>
+        @endif
       </div>
       <div class="pb-6">
         @!component('components/button',{

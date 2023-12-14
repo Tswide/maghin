@@ -4,7 +4,6 @@ import UpdateCourValidator from '../../Validators/UpdateCourValidator'
 import {string} from '@ioc:Adonis/Core/Helpers'
 import Category from '../../Models/Category'
 import Drive from '@ioc:Adonis/Core/Drive'
-import CourSearchValidator from '../../Validators/CourSearchValidator'
 
 export default class CoursController {
   public async index ({ view, request }: HttpContextContract) {
