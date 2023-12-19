@@ -70,9 +70,7 @@ export default class CoursController {
       }
       const newName = string.generateRandom(20) + '.' + pdf.extname
       await pdf.moveToDisk('./', {name:newName})
-
-      const url = await Drive.getUrl(newName)
-      cour.file = url
+      cour.file = newName
     }
     const dataCour = await request.validate(UpdateCourValidator)
     cour

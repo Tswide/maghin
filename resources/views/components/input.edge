@@ -7,13 +7,12 @@
   </select>
 @elseif(type === 'file')
   <input 
-    class="shadow appearance-none w-full text-lien font-second_text leading-tight focus:outline-none focus:shadow-outline {{ flashMessages.has(`errors.${name}`) ? 'is-valid' : ''}}" 
+    class="hidden" 
     type="{{ type }}" 
     id="{{ name }}" 
     name="{{ name }}" 
     value="{{ flashMessages.get('name') || value || '' }}"
     placeholder="{{placeholder}}"
-    required
   />
 @else
   <input 

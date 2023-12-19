@@ -1,13 +1,12 @@
--login register
-    -renvoyer des message en cas d'input non completer
-
 -Index
     - Dropdown le nom des categorie
+    - Suppresion du fichier lors du delete file
     
 - Modification et Ajout
     - Designer vite fait
-    - Redemande le fichier
-    - undefined ??
 
 - Dashboard 
     - Cree les card pour les categorie et users
+
+
+- Rajouter une pages aves les photos des eleves
