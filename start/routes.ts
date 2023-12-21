@@ -21,7 +21,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/', 'CoursController.index').as('home')
+  Route.get('/', 'IndicesController.index').as('home')
+  Route.get('/pics', 'PicsController.index').as('pics')
+  Route.get('/pannel', 'CoursController.index').as('pannel')
   Route.get('/uploads/:id', 'CoursController.upload').as('cours.upload')
 }).middleware('auth')
 

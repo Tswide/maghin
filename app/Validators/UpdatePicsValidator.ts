@@ -1,7 +1,8 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Pic from '../Models/Pic'
 
-export default class UpdateCategoryValidator {
+export default class UpdatePicsValidator {
   constructor (protected ctx: HttpContextContract) {}
 
   /*
@@ -24,6 +25,9 @@ export default class UpdateCategoryValidator {
    *    ```
    */
   public schema = schema.create({
-    name: schema.string({ trim: true }),
+    thumbnail: schema.string({ trim: true }),
+    categoryId: schema.number([
+      rules.exists({ column: Pic.primaryKey, table: Pic.table }),
+    ]),
   })
 }
