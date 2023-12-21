@@ -1,6 +1,5 @@
 -Index
     - Dropdown le nom des categorie
-    - Suppresion du fichier lors du delete file
     
 - Modification et Ajout
     - Designer vite fait

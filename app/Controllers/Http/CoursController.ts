@@ -4,6 +4,8 @@ import UpdateCourValidator from '../../Validators/UpdateCourValidator'
 import {string} from '@ioc:Adonis/Core/Helpers'
 import Category from '../../Models/Category'
 import Drive from '@ioc:Adonis/Core/Drive'
+import axios from 'axios'
+import fs from 'fs'
 
 export default class CoursController {
   public async index ({ view, request }: HttpContextContract) {
@@ -54,10 +56,25 @@ export default class CoursController {
     const cour = await Cour.findOrFail(params.id)
     await cour.delete()
     if(cour.file) {
-      Drive.delete('upload/' + cour.file)
+      Drive.delete(cour.file)
     }
     session.flash({ success:'Le cour a bien ete supprimer' })
     return response.redirect().toRoute('home')
+  }
+
+  public async upload ({ params, response }: HttpContextContract) {
+    const cour = await Cour.findOrFail(params.id)
+    const resp = await axios(
+      {
+        method:'get', 
+        url: `https://127.0.0.1:3333/tmp/uploads/${cour.file}`, 
+        responseType: 'stream' 
+      }   
+    )
+    resp.data.pipe(fs.createWriteStream(`tmp/uploads/${cour.file}`));
+    response.header('Content-Disposition', 'attachment; filename=unittests.pdf'); // comment this if you want to display on the browser
+    response.type('.pdf')
+    return response.send(fs.readFileSync(`tmp/uploads/${cour.file}`))
   }
 
   // eslint-disable-next-line max-len
@@ -68,11 +85,13 @@ export default class CoursController {
       if(cour.file) {
         Drive.delete(cour.file)
       }
-      const newName = string.generateRandom(20) + '.' + pdf.extname
-      await pdf.moveToDisk('./', {name:newName})
-      cour.file = newName
+      const newName = string.generateRandom(20) + '.' + pdf.extname;
+      await pdf.moveToDisk('./', {name:newName});
+      cour.file = newName;
     }
+
     const dataCour = await request.validate(UpdateCourValidator)
+    
     cour
       .merge({ ...dataCour || false })
       .save()

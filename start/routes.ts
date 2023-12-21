@@ -22,22 +22,27 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
   Route.get('/', 'CoursController.index').as('home')
+  Route.get('/uploads/:id', 'CoursController.upload').as('cours.upload')
 }).middleware('auth')
 
 Route.group(() => {
-  Route.get('/cour/new', 'CoursController.create').as('cours.create')
-  Route.post('/cour/new', 'CoursController.store')
-  Route.get('/cour/:id?', 'CoursController.show').as('cours.show')
-  Route.post('/cour/:id?', 'CoursController.update')
-  Route.delete('/cour/:id?', 'CoursController.destroy')
+  Route.group(() => {
+    Route.get('/new', 'CoursController.create').as('cours.create')
+    Route.post('/new', 'CoursController.store')
+    Route.get('/:id?', 'CoursController.show').as('cours.show')
+    Route.post('/:id?', 'CoursController.update')
+    Route.delete('/:id?', 'CoursController.destroy')
+  }).prefix('/cour')
+  
+  Route.group(() => {
+    Route.get('/new', 'DashboardController.create').as('categories.create')
+    Route.post('/new', 'DashboardController.store')
+    Route.get('/:id?', 'DashboardController.show').as('categories.show')
+    Route.post('/:id?', 'DashboardController.update')
+    Route.delete('/:id?', 'DashboardController.destroy')
+  }).prefix('/categorie')
 
   Route.get('/dashboard', 'DashboardController.index').as('dashboard')
-  Route.get('/categorie/new', 'DashboardController.create').as('categories.create')
-  Route.post('/categorie/new', 'DashboardController.store')
-  Route.get('/categorie/:id?', 'DashboardController.show').as('categories.show')
-  Route.post('/categorie/:id?', 'DashboardController.update')
-  Route.delete('/categorie/:id?', 'DashboardController.destroy')
-
   Route.get('/user/:id?', 'DashboardController.show').as('users.show')
   Route.delete('/user/:id?', 'SecurityController.destroy')
 }).middleware('adminCheck')
