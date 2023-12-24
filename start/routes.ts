@@ -21,9 +21,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/', 'IndicesController.index').as('home')
+  Route.get('/', 'CoursController.index').as('home')
   Route.get('/pics', 'PicsController.index').as('pics')
-  Route.get('/pannel', 'CoursController.index').as('pannel')
   Route.get('/uploads/:id', 'CoursController.upload').as('cours.upload')
 }).middleware('auth')
 
@@ -35,6 +34,12 @@ Route.group(() => {
     Route.post('/:id?', 'CoursController.update')
     Route.delete('/:id?', 'CoursController.destroy')
   }).prefix('/cour')
+
+  Route.group(() => {
+    Route.get('/new', 'PicsController.create').as('pics.create')
+    Route.post('/new', 'PicsController.store')
+    Route.delete('/:id?', 'PicsController.destroy')
+  }).prefix('/pics')
   
   Route.group(() => {
     Route.get('/new', 'DashboardController.create').as('categories.create')

@@ -9,10 +9,10 @@ module.exports = {
         background: '#18191B',
         second_background: '#212225',
         special_background: '#304384',
-        button: '#1D2E62',
-        border: '#363A3F',
+        button: '#A35829',
+        border: '#435DB1',
         lien: '#777b83',
-        hover: '#eeeff1',
+        hover: '#FFA057',
 
         title_text: '#eeeff1',
         paragraphe: '#eeeff1',

@@ -1,13 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class AddCategoryIdToCours extends BaseSchema {
+export default class AddCategoryIdToPics extends BaseSchema {
   protected tableName = 'pics'
 
   public async up () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.integer('category_pics_id')
+      table.integer('categorie_pics_id')
         .unsigned()
-        .references('categories.id')
+        .references('categorie_pics.id')
         .onDelete('SET NULL')
         .nullable()
     })
@@ -15,7 +15,7 @@ export default class AddCategoryIdToCours extends BaseSchema {
 
   public async down () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumn('category_pics_id')
+      table.dropColumn('categorie_pics_id')
     })
   }
 }
