@@ -25,7 +25,6 @@ export default class UpdatePicsValidator {
    *    ```
    */
   public schema = schema.create({
-    thumbnail: schema.string({ trim: true }),
     categoryId: schema.number([
       rules.exists({ column: Pic.primaryKey, table: Pic.table }),
     ]),

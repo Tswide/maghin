@@ -5,9 +5,9 @@ export default class AddCategoryIdToPics extends BaseSchema {
 
   public async up () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.integer('categorie_pics_id')
+      table.integer('categories_pics_id')
         .unsigned()
-        .references('categorie_pics.id')
+        .references('categories_pics.id')
         .onDelete('SET NULL')
         .nullable()
     })
@@ -15,7 +15,7 @@ export default class AddCategoryIdToPics extends BaseSchema {
 
   public async down () {
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumn('categorie_pics_id')
+      table.dropColumn('categories_pics_id')
     })
   }
 }

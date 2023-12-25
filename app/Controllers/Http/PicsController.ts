@@ -2,26 +2,20 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Pic from '../../Models/Pic'
 import {string} from '@ioc:Adonis/Core/Helpers'
-import UpdatePicsValidator from '../../Validators/UpdatePicsValidator'
-import Category_Pic from '../../Models/Category_Pic'
 import Drive from '@ioc:Adonis/Core/Drive'
 
 export default class PicsController {
   public async index ({ view }: HttpContextContract) {
     const pictures = await Database.from(Pic.table)
-    const categories_pic = await Database.from(Category_Pic.table)
     return view.render('pics/index', {
       pictures,
-      categories_pic,
     })
   }
   
   public async create ({ view }: HttpContextContract) {
-    const picture = new Pic()
-    const categorie = await Category_Pic.all() 
+    const pic = new Pic()
     return view.render('pics/create', {
-      picture,
-      categorie,
+      pic,
     })
   }
 
@@ -33,10 +27,8 @@ export default class PicsController {
 
   public async show ({ view, params }: HttpContextContract) {
     const pic = await Pic.findOrFail(params.id)
-    const categories = await Category_Pic.all()
     return view.render('pics/show', {
       pic,
-      categories,
     })
   }
 
@@ -47,8 +39,8 @@ export default class PicsController {
   }
 
   public async destroy ({ params, session, response }: HttpContextContract) {
-    const categorie = await Pic.findOrFail(params.id)
-    await categorie.delete()
+    const pic = await Pic.findOrFail(params.id)
+    await pic.delete()
     session.flash({ success:'La photo a bien ete supprimer' })
     return response.redirect().toRoute('dashboard')
   }
@@ -65,11 +57,8 @@ export default class PicsController {
       await thumbnail.moveToDisk('./', {name:newName});
       pic.thumbnail = newName;
     }
-
-    const dataPics = await request.validate(UpdatePicsValidator)
     
     pic
-      .merge({ ...dataPics || false })
       .save()
   }
 }

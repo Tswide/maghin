@@ -12,7 +12,7 @@
         @!component('components/input', {
             label: 'Categorie',
             name: 'categoryId',
-            value: cour.categoryId,
+            value: cour.category_id,
             options: categories.reduce((acc, c) => ({ ...acc, [c.id]: c.name }), {})
         })
         <a href="{{route('categories.create')}}">Ajouter une categorie</a>
