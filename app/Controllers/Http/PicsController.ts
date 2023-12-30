@@ -1,21 +1,26 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Pic from '../../Models/Pic'
+import CategoriesPic from '../../Models/CategoriesPic'
 import {string} from '@ioc:Adonis/Core/Helpers'
 import Drive from '@ioc:Adonis/Core/Drive'
 
 export default class PicsController {
   public async index ({ view }: HttpContextContract) {
-    const pictures = await Database.from(Pic.table)
+    const pics = await Database.from(Pic.table)
+    const categories_pic = await Database.from(CategoriesPic.table)
     return view.render('pics/index', {
-      pictures,
+      pics,
+      categories_pic,
     })
   }
   
   public async create ({ view }: HttpContextContract) {
     const pic = new Pic()
+    const categories_pic = await CategoriesPic.all()
     return view.render('pics/create', {
       pic,
+      categories_pic,
     })
   }
 
@@ -27,8 +32,10 @@ export default class PicsController {
 
   public async show ({ view, params }: HttpContextContract) {
     const pic = await Pic.findOrFail(params.id)
+    const categories_pic = await CategoriesPic.all()
     return view.render('pics/show', {
       pic,
+      categories_pic,
     })
   }
 
@@ -42,7 +49,7 @@ export default class PicsController {
     const pic = await Pic.findOrFail(params.id)
     await pic.delete()
     session.flash({ success:'La photo a bien ete supprimer' })
-    return response.redirect().toRoute('dashboard')
+    return response.redirect().toRoute('pics')
   }
 
   // eslint-disable-next-line max-len

@@ -38,6 +38,8 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/new', 'PicsController.create').as('pics.create')
     Route.post('/new', 'PicsController.store')
+    Route.get('/:id?', 'PicsController.show').as('pics.show')
+    Route.post('/:id?', 'PicsController.update')
     Route.delete('/:id?', 'PicsController.destroy')
   }).prefix('/pics')
   

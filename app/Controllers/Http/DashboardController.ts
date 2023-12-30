@@ -26,7 +26,7 @@ export default class DashboardController {
   public async store ({ params, request, session, response }: HttpContextContract) {
     await this.handleRequest(params, request)
     session.flash({ success:'La catégorie a bien ete ajouter' })
-    return response.redirect().toRoute('dashboard')
+    return response.redirect().toRoute('cours.create')
   }
 
   public async show ({ view, params }: HttpContextContract) {
