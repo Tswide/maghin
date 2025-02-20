@@ -1,6 +1,6 @@
-# Maghin Refont
+# Maghin
 
-Maghin Refont est une refonte visant à approfondir mes connaissances en **backend** en utilisant **AdonisJS**, un framework TypeScript inspiré de Laravel. Ce projet m'a permis d'explorer les concepts avancés du backend, la gestion des bases de données et l'authentification des utilisateurs.
+Maghin est un project visant à approfondir mes connaissances en **backend** en utilisant **AdonisJS**, un framework TypeScript inspiré de Laravel. Ce projet m'a permis d'explorer les concepts avancés du backend, la gestion des bases de données, l'authentification des utilisateurs, l'utilisation des controllers, models, route et middleware.
 
 ## 🚀 Technologies utilisées
 
